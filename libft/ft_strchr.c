@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:26:23 by sbaba             #+#    #+#             */
-/*   Updated: 2024/10/22 02:12:26 by user             ###   ########.fr       */
+/*   Updated: 2025/07/04 18:50:02 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	const unsigned char	*bs;
 
+	if (!s)
+		return (NULL);
 	bs = (const unsigned char *)s;
 	while (*bs != '\0')
 	{

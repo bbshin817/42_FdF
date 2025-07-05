@@ -1,4 +1,6 @@
-SRCS		=	src/main.c
+SRCS		=	src/main.c \
+				get_next_line/get_next_line_utils.c \
+				get_next_line/get_next_line.c
 OBJS		=	$(SRCS:.c=.o)
 NAME		=	fdf
 
