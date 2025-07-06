@@ -6,13 +6,13 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:06:16 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/05 21:53:58 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/06 20:05:07 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const	char *str)
+size_t	ft_ext_strlen(const	char *str)
 {
 	size_t	len;
 
@@ -24,25 +24,25 @@ size_t	ft_strlen(const	char *str)
 	return (len);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	const unsigned char	*bs;
+// char	*ft_ext_strchr(const char *s, int c)
+// {
+// 	const unsigned char	*bs;
 
-	if (!s)
-		return (NULL);
-	bs = (const unsigned char *)s;
-	while (*bs != '\0')
-	{
-		if (*bs == (unsigned char)c)
-			return ((char *)bs);
-		++bs;
-	}
-	if (*bs == (unsigned char)c)
-		return ((char *)bs);
-	return (NULL);
-}
+// 	if (!s)
+// 		return (NULL);
+// 	bs = (const unsigned char *)s;
+// 	while (*bs != '\0')
+// 	{
+// 		if (*bs == (unsigned char)c)
+// 			return ((char *)bs);
+// 		++bs;
+// 	}
+// 	if (*bs == (unsigned char)c)
+// 		return ((char *)bs);
+// 	return (NULL);
+// }
 
-static size_t	ft_strcat(char *dest, const char *src)
+static size_t	ft_ext_strcat(char *dest, const char *src)
 {
 	size_t	destlen;
 	size_t	srclen;
@@ -64,7 +64,7 @@ static size_t	ft_strcat(char *dest, const char *src)
 	return (destlen + srclen);
 }
 
-static size_t	ft_strcpy(char *dest, const char *src)
+static size_t	ft_ext_strcpy(char *dest, const char *src)
 {
 	size_t	i;
 	size_t	strlen;
@@ -95,11 +95,11 @@ char	*ft_ext_strjoin(char *s1, char *s2)
 	}
 	if (!s2)
 		return (NULL);
-	result = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	result = (char *)malloc(ft_ext_strlen(s1) + ft_ext_strlen(s2) + 1);
 	if (result == NULL)
 		return (NULL);
-	ft_strcpy(result, s1);
-	ft_strcat(result, s2);
+	ft_ext_strcpy(result, s1);
+	ft_ext_strcat(result, s2);
 	free(s1);
 	return (result);
 }

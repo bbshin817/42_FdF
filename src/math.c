@@ -6,17 +6,17 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:25:17 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/05 21:50:21 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/06 20:37:31 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	isometric(int x, int y, int z)
+void	isometric(int *x, int *y, int z)
 {
 	int	tmp;
 
-	tmp = x;
-	x = (tmp - y) * cos(0.523599);
-	y = (tmp + y) * sin(0.523599) - z;
+	tmp = *x;
+	*x = (tmp - *y) * cos(0.523599);
+	*y = (tmp + *y) * sin(0.523599) - z;
 }
