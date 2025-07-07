@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 20:21:24 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 15:40:20 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 16:22:02 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	set_window_size(t_map *map, t_size size)
 {
 	map->window_width = size.max_x - size.min_x;
 	map->window_height = size.max_y - size.min_y;
-	map->window_width += map->window_width;
-	map->window_height += map->window_height;
+	map->window_width += map->window_width / 2;
+	map->window_height += map->window_height / 2;
+	printf("width: %d, height: %d\n", map->window_width, map->window_height);
 	map->offset_x = map->window_width / 2;
 	map->offset_y = map->window_height / 2;
 	map->offset_x -= (size.max_x + size.min_x) / 2;
@@ -55,6 +56,7 @@ void	init_positions(t_map *map, t_coordinate ***coordinates)
 	int 	iy;
 	int		x;
 	int		y;
+	int		z;
 	t_size	size;
 
 	size = size_init();
@@ -66,12 +68,15 @@ void	init_positions(t_map *map, t_coordinate ***coordinates)
 		{
 			x = ix * map->zoom + map->window_width / 2;
 			y = iy * map->zoom + map->window_height / 2;
+			z = (*coordinates)[iy][ix].z;
+			printf("x: %d, y: %d, z: %d\n", x, y, z);
 			isometric(&x, &y, (*coordinates)[iy][ix].z * map->zoom);
 			check_size(&size, x, y);
 			(*coordinates)[iy][ix].x = x;
 			(*coordinates)[iy][ix].y = y;
 			ix++;
 		}
+		printf("---------------\n");
 		iy++;
 	}
 	set_window_size(map, size);

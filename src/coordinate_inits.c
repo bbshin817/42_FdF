@@ -6,13 +6,13 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 20:19:10 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 15:55:27 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 17:24:03 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int count_spaces(char *str)
+int count_spaces(char *str) //要修正！
 {
 	int	i;
 
@@ -73,6 +73,7 @@ int append(t_coordinate ***coordinates, char *line, int height)
 			coordinate.color = hex_to_int(splitted_color[1]);
 		(*coordinates)[height][width] = coordinate;
 		free_values(splitted[width], splitted_color);
+		// printf("Z: %d\n", (*coordinates)[height][width].z);
 		width++;
 	}
 	free(splitted);

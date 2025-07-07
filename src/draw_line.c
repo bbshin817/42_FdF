@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 21:07:04 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 15:57:53 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 16:03:10 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	draw_map(t_img *img, t_map *map, t_coordinate ***coordinates)
 	int iy;
 
 	iy = 0;
-	printf("window: %d x %d\n", map->window_width, map->window_height);
 	while (iy < map->height)
 	{
 		ix = 0;

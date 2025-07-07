@@ -17,7 +17,7 @@ LIBMLX_A	=	mlx/libmlx_Linux.a
 
 CC			=	cc
 RM			=	rm -f
-CFLAGS		=	-g -Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 MLX_CFLAGS	=	-Imlx -lXext -lX11
 
 %.o:%.c
