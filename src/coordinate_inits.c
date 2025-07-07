@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 20:19:10 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/06 20:52:35 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:55:27 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,46 @@ int	expansion_coordinates_memory(t_coordinate ***coordinates, int height)
 	return (0);
 }
 
-int	coordinate_init(int fd, t_map *map, t_coordinate ***coordinates)
+void free_values(char *splitted, char **splitted_color)
+{
+	free(splitted);
+	if (splitted_color[1])
+		free(splitted_color[1]);
+	free(splitted_color);
+	return ;
+}
+
+int append(t_coordinate ***coordinates, char *line, int height)
 {
 	t_coordinate	coordinate;
-	char			*line;
+	int				width;
 	char			**splitted;
-	char			**tmp;
+	char			**splitted_color;
+
+	width = 0;
+	splitted = ft_split(line, ' ');
+	if (!splitted)
+		return (-1);
+	while (splitted[width])
+	{
+		splitted_color = ft_split(splitted[width], ',');
+		if (!splitted_color)
+			return (-1);
+		coordinate.z = ft_atoi(splitted_color[0]);
+		coordinate.color = 0xffffff;
+		if (splitted_color[1])
+			coordinate.color = hex_to_int(splitted_color[1]);
+		(*coordinates)[height][width] = coordinate;
+		free_values(splitted[width], splitted_color);
+		width++;
+	}
+	free(splitted);
+	return (0);
+}
+
+int	coordinate_init(int fd, t_map *map, t_coordinate ***coordinates)
+{
+	char	*line;
 
 	while ((line = get_next_line(fd)))
 	{
@@ -55,19 +89,12 @@ int	coordinate_init(int fd, t_map *map, t_coordinate ***coordinates)
 			return (-1);
 		map->width = (count_spaces(line) + 1);
 		(*coordinates)[map->height] = malloc(map->width * sizeof(t_coordinate));
-		if (!(*coordinates)[map->height])
-			return (-1);
-		splitted = ft_split(line, ' ');
-		tmp = splitted;
-		map->width = 0;
-		while (splitted[map->width])
+		if (!(*coordinates)[map->height] || append(coordinates, line, map->height) == -1)
 		{
-			coordinate.z = ft_atoi(splitted[map->width]);
-			(*coordinates)[map->height][map->width] = coordinate;
-			free(splitted[map->width]);
-			map->width++;
+			free((*coordinates)[map->height]);
+			free(line);
+			return (-1);
 		}
-		free(tmp);
 		free(line);
 		map->height++;
 	}

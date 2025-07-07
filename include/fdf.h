@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:55:13 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/06 23:30:43 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 14:38:59 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@
 # include <sys/stat.h>
 # include <math.h>
 
+#include <stdio.h>
+
 typedef struct s_map
 {
 	int	window_width;
 	int	window_height;
+	int offset_x;
+	int	offset_y;
 	int	width;
 	int	height;
 	int	zoom;
@@ -47,6 +51,7 @@ typedef struct s_coordinate
 	int	x;
 	int	y;
 	int	z;
+	int color;
 }	t_coordinate;
 
 typedef struct s_size
@@ -65,5 +70,7 @@ void	image_init(t_img *img, t_map map);
 void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_map(t_img *img, t_map *map, t_coordinate ***coordinates);
 void	view_image(t_img *img);
+int		hex_to_int(char *hex);
+int		interpolate_color(int start, int end, int num, int den);
 
 #endif

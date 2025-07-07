@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 21:00:21 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/06 21:48:54 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:58:26 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,37 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+int key_close(int keycode, void *param)
+{
+	t_img *img;
+
+	img = (t_img *)param;
+	if (keycode != 65307)
+		return (-1);
+	mlx_destroy_image(img->mlx, img->img);
+	mlx_destroy_window(img->mlx, img->mlx_window);
+	// mlx_destroy_display(img->mlx);
+	mlx_loop_end(img->mlx);
+	return (0);
+}
+
+int window_close(void *param)
+{
+	t_img *img;
+
+	img = (t_img *)param;
+	mlx_destroy_image(img->mlx, img->img);
+	mlx_destroy_window(img->mlx, img->mlx_window);
+	// mlx_destroy_display(img->mlx);
+	mlx_loop_end(img->mlx);
+	// free(img->mlx);
+	return (0);
+}
+
 void	view_image(t_img *img)
 {
+	mlx_hook(img->mlx_window, 2, 1L<<0, key_close, img);
+	mlx_hook(img->mlx_window, 17, 0L, window_close, img);
 	mlx_put_image_to_window(img->mlx, img->mlx_window, img->img, 0, 0);
 	mlx_loop(img->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:53:52 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/06 22:59:58 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/07 15:45:50 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,21 @@ t_map map_init()
 	map.window_height = 480;
 	map.width = 0;
 	map.height = 0;
-	map.zoom = 15;
+	map.zoom = 5;
 	return (map);
 }
 
-#include <stdio.h>
+void free_coordinates(t_coordinate ***coordinates, int height)
+{
+	int i = 0;
+	while (i < height)
+	{
+		free((*coordinates)[i]);
+		i++;
+	}
+	free(*coordinates);
+	return ;
+}
 
 int	main(int argc, char *argv[])
 {
@@ -42,6 +52,7 @@ int	main(int argc, char *argv[])
 	init_positions(&map, &coordinates);
 	image_init(&img, map);
 	draw_map(&img, &map, &coordinates);
+	free_coordinates(&coordinates, map.height);
 	view_image(&img);
 	return (1);
 }

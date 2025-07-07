@@ -4,6 +4,7 @@ SRCS		=	src/main.c \
 				src/image.c \
 				src/draw_line.c \
 				src/map_inits.c \
+				src/gradient.c \
 				get_next_line/get_next_line_utils.c \
 				get_next_line/get_next_line.c
 OBJS		=	$(SRCS:.c=.o)
