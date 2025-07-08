@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:55:13 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 14:38:59 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/08 15:43:27 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_size
 } t_size;
 
 
-int		coordinate_init(int fd, t_map *map, t_coordinate ***coordinates);
+int		coordinate_set(int fd, t_map *map, t_coordinate ***coordinates);
 void	init_positions(t_map *map, t_coordinate ***coordinates);
 void	isometric(int *x, int *y, int z);
 void	image_init(t_img *img, t_map map);
@@ -72,5 +72,9 @@ void	draw_map(t_img *img, t_map *map, t_coordinate ***coordinates);
 void	view_image(t_img *img);
 int		hex_to_int(char *hex);
 int		interpolate_color(int start, int end, int num, int den);
+int		copy_coordinates(t_coordinate ***dst, t_coordinate ***src, t_map *map, int height);
+void	free_splitted(char **splitted);
+void	free_coordinates(t_coordinate ***coordinates, int height);
+void	close_mlx(t_img *img);
 
 #endif

@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/16 16:44:20 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/08 14:24:38 by sbaba            ###   ########.fr       */
+/*   Created: 2025/07/08 14:24:07 by sbaba             #+#    #+#             */
+/*   Updated: 2025/07/08 15:43:22 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../include/fdf.h"
 
-# include "../libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+void free_coordinates(t_coordinate ***coordinates, int height)
+{
+	int i = 0;
+	while (i < height)
+	{
+		free((*coordinates)[i]);
+		i++;
+	}
+	free(*coordinates);
+	return ;
+}
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+void free_splitted(char **splitted)
+{
+	int	i;
 
-char	*get_next_line(int fd);
-size_t	ft_strlen(const	char *str);
-char	*ft_strchr(const char *s, int c);
-char	*ft_ext_strjoin(char *s1, char *s2);
-
-#endif
+	i = 0;
+	if (!splitted)
+		return;
+	while (splitted[i])
+		free(splitted[i++]);
+	free(splitted);
+}

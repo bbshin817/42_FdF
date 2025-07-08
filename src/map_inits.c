@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 20:21:24 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 16:22:02 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/08 15:16:12 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,15 @@ void	init_positions(t_map *map, t_coordinate ***coordinates)
 			x = ix * map->zoom + map->window_width / 2;
 			y = iy * map->zoom + map->window_height / 2;
 			z = (*coordinates)[iy][ix].z;
-			printf("x: %d, y: %d, z: %d\n", x, y, z);
+			// if (100 < z)
+			// 	printf("Z: %d\n", z);
 			isometric(&x, &y, (*coordinates)[iy][ix].z * map->zoom);
 			check_size(&size, x, y);
 			(*coordinates)[iy][ix].x = x;
 			(*coordinates)[iy][ix].y = y;
 			ix++;
 		}
-		printf("---------------\n");
+		// printf("---------------\n");
 		iy++;
 	}
 	set_window_size(map, size);
