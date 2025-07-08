@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 19:06:16 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/06 20:05:07 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/08 16:20:52 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,6 @@ size_t	ft_ext_strlen(const	char *str)
 		len++;
 	return (len);
 }
-
-// char	*ft_ext_strchr(const char *s, int c)
-// {
-// 	const unsigned char	*bs;
-
-// 	if (!s)
-// 		return (NULL);
-// 	bs = (const unsigned char *)s;
-// 	while (*bs != '\0')
-// 	{
-// 		if (*bs == (unsigned char)c)
-// 			return ((char *)bs);
-// 		++bs;
-// 	}
-// 	if (*bs == (unsigned char)c)
-// 		return ((char *)bs);
-// 	return (NULL);
-// }
 
 static size_t	ft_ext_strcat(char *dest, const char *src)
 {

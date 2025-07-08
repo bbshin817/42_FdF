@@ -6,88 +6,87 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 21:07:04 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 16:03:10 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/08 16:16:01 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-void	slope_less_than_one(t_img *img, int dx, int dy, t_coordinate start, t_coordinate end)
+void	s_less(t_img *img, t_tilt tilt, t_coordinate start, t_coordinate end)
 {
-	int p;
-	int i;
+	t_line_pos	linepos;
 
-	i = 0;
-	p = 2 * abs(dy) - abs(dx);
-	while (i <= abs(dx))
+	linepos.i = 0;
+	linepos.p = 2 * abs(tilt.dy) - abs(tilt.dx);
+	while (linepos.i <= abs(tilt.dx))
 	{
-		ft_mlx_pixel_put(img, start.x, start.y, interpolate_color(start.color, end.color, i, abs(dx)));
-		if (dx > 0)
+		ft_mlx_pixel_put(img, start.x, start.y,
+			line_clr(start.c, end.c, linepos.i, abs(tilt.dx)));
+		if (tilt.dx > 0)
 			start.x++;
 		else
 			start.x--;
-		if (p < 0)
-			p += 2 * abs(dy);
+		if (linepos.p < 0)
+			linepos.p += 2 * abs(tilt.dy);
 		else
 		{
-			if (dy > 0)
+			if (tilt.dy > 0)
 				start.y++;
 			else
 				start.y--;
-			p += 2 * abs(dy) - 2 * abs(dx);
+			linepos.p += 2 * abs(tilt.dy) - 2 * abs(tilt.dx);
 		}
-		i++;
+		linepos.i++;
 	}
 	return ;
 }
 
-void	slope_bigger_than_one(t_img *img, int dx, int dy, t_coordinate start, t_coordinate end)
+void	s_big(t_img *img, t_tilt t, t_coordinate s, t_coordinate e)
 {
-	int p;
-	int i;
+	t_line_pos	l;
 
-	i = 0;
-	p = 2 * abs(dx) - abs(dy);
-	ft_mlx_pixel_put(img, start.x, start.y, start.color);
-	while (i <= abs(dy))
+	l.i = 0;
+	l.p = 2 * abs(t.dx) - abs(t.dy);
+	ft_mlx_pixel_put(img, s.x, s.y, s.c);
+	while (l.i <= abs(t.dy))
 	{
-		ft_mlx_pixel_put(img, start.x, start.y, interpolate_color(start.color, end.color, i, abs(dy)));
-		if (dy > 0)
-			start.y++;
+		ft_mlx_pixel_put(img, s.x, s.y, line_clr(s.c, e.c, l.i, abs(t.dy)));
+		if (t.dy > 0)
+			s.y++;
 		else
-			start.y--;
-		if (p < 0)
-			p += 2 * abs(dx);
+			s.y--;
+		if (l.p < 0)
+			l.p += 2 * abs(t.dx);
 		else
 		{
-			if (dx > 0)
-				start.x++;
+			if (t.dx > 0)
+				s.x++;
 			else
-				start.x--;
-			p += 2 * abs(dx) - 2 * abs(dy);
+				s.x--;
+			l.p += 2 * abs(t.dx) - 2 * abs(t.dy);
 		}
-		i++;
+		l.i++;
 	}
 	return ;
 }
 
 void	draw_line(t_img *img, t_coordinate start, t_coordinate end)
 {
-	int	dx;
-	int	dy;
+	t_tilt	tilt;
 
-	dx = end.x - start.x;
-	dy = end.y - start.y;
-	if (abs(dx) > abs(dy))
-		slope_less_than_one(img, dx, dy, start, end);
+	tilt.dx = end.x - start.x;
+	tilt.dy = end.y - start.y;
+	if (abs(tilt.dx) > abs(tilt.dy))
+		s_less(img, tilt, start, end);
 	else
-		slope_bigger_than_one(img, dx, dy, start, end);
+		s_big(img, tilt, start, end);
+	return ;
 }
 
 void	draw_map(t_img *img, t_map *map, t_coordinate ***coordinates)
 {
-	int ix;
-	int iy;
+	int	ix;
+	int	iy;
 
 	iy = 0;
 	while (iy < map->height)
@@ -98,11 +97,14 @@ void	draw_map(t_img *img, t_map *map, t_coordinate ***coordinates)
 			(*coordinates)[iy][ix].x += map->offset_x;
 			(*coordinates)[iy][ix].y += map->offset_y;
 			if (ix > 0)
-				draw_line(img, (*coordinates)[iy][ix - 1], (*coordinates)[iy][ix]);
+				draw_line(img, (*coordinates)[iy][ix - 1],
+					(*coordinates)[iy][ix]);
 			if (iy > 0)
-				draw_line(img, (*coordinates)[iy - 1][ix], (*coordinates)[iy][ix]);
+				draw_line(img, (*coordinates)[iy - 1][ix],
+					(*coordinates)[iy][ix]);
 			ix++;
 		}
 		iy++;
 	}
+	return ;
 }

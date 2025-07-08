@@ -6,20 +6,13 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 21:07:04 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/07 14:43:49 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/08 16:13:32 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-float	fraction(float x1, float x2, float x)
-{
-	if (x1 != x2)
-		return ((x - x1) / (x2 - x1));
-	return (0);
-}
-
-int	interpolate_color(int start, int end, int num, int den)
+int	line_clr(int start, int end, int num, int den)
 {
 	int	r;
 	int	g;

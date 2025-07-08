@@ -6,13 +6,13 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/06 20:19:10 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/08 15:45:55 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/08 16:18:07 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int count_value(char *str)
+int	count_value(char *str)
 {
 	int	i;
 	int	flag;
@@ -34,7 +34,7 @@ int count_value(char *str)
 	return (i);
 }
 
-int	expansion_coordinates_memory(t_coordinate ***coordinates, int height, t_map *map)
+int	expand_memory(t_coordinate ***coordinates, int height, t_map *map)
 {
 	t_coordinate	**tmp;
 
@@ -44,14 +44,14 @@ int	expansion_coordinates_memory(t_coordinate ***coordinates, int height, t_map 
 		return (-1);
 	if (tmp)
 	{
-		if (copy_coordinates(coordinates, &tmp, map, height) == -1)
+		if (cpy_crds(coordinates, &tmp, map, height) == -1)
 			return (-1);
 		free_coordinates(&tmp, height);
 	}
 	return (0);
 }
 
-int append(t_coordinate ***coordinates, char *line, t_map *map)
+int	append(t_coordinate ***coordinates, char *line, t_map *map)
 {
 	t_coordinate	coordinate;
 	int				width;
@@ -68,12 +68,10 @@ int append(t_coordinate ***coordinates, char *line, t_map *map)
 		if (!splitted_color)
 			return (-1);
 		coordinate.z = ft_atoi(splitted_color[0]);
-		coordinate.color = 0xffffff;
+		coordinate.c = 0xffffff;
 		if (splitted_color[1])
-			coordinate.color = hex_to_int(splitted_color[1]);
+			coordinate.c = hex_to_int(splitted_color[1]);
 		(*coordinates)[map->height][width] = coordinate;
-		if (100 < coordinate.z)
-			printf("Z: %d\n", coordinate.z);
 		free_splitted(splitted_color);
 		width++;
 	}
@@ -85,14 +83,16 @@ int	coordinate_set(int fd, t_map *map, t_coordinate ***coordinates)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
-		if (expansion_coordinates_memory(coordinates, map->height, map) == -1)
+		if (expand_memory(coordinates, map->height, map) == -1)
 			return (-1);
 		if (0 == map->width)
 			map->width = count_value(line);
 		(*coordinates)[map->height] = malloc(map->width * sizeof(t_coordinate));
-		if (!(*coordinates)[map->height] || append(coordinates, line, map) == -1)
+		if (!(*coordinates)[map->height]
+			|| append(coordinates, line, map) == -1)
 		{
 			free((*coordinates)[map->height]);
 			free(line);
@@ -100,6 +100,7 @@ int	coordinate_set(int fd, t_map *map, t_coordinate ***coordinates)
 		}
 		free(line);
 		map->height++;
+		line = get_next_line(fd);
 	}
 	return (0);
 }
