@@ -23,7 +23,7 @@ LIBFT_A		=	$(LIBFT_DIR)/libft.a
 
 CC			=	cc
 RM			=	rm -f
-CFLAGS		=	-g -Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 MLX_CFLAGS	=	-Imlx -lXext -lX11
 
 all: $(NAME)
@@ -44,12 +44,13 @@ $(ARCHIVE_NAME):
 $(LIBFT_A):
 	$(MAKE) -C $(LIBFT_DIR)
 
-$(LIBMLX_A): $(LIBMLX_DIR)
+$(LIBMLX_A):
 	$(MAKE) -C $(LIBMLX_DIR)
 
 clean:
 	$(RM) $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(LIBMLX_DIR) clean
 
 fclean:	clean
 	$(RM) $(NAME)
@@ -57,4 +58,4 @@ fclean:	clean
 
 re:	fclean	all
 
-.PHONY:	all clean fclean re $(LIBMLX_DIR)
+.PHONY:	all clean fclean re
