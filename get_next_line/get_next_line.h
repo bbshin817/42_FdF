@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:44:20 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/08 14:24:38 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/09 15:43:27 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 4096
 # endif
 
 char	*get_next_line(int fd);

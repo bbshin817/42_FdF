@@ -6,7 +6,7 @@
 /*   By: sbaba <sbaba@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 17:53:52 by sbaba             #+#    #+#             */
-/*   Updated: 2025/07/08 15:56:28 by sbaba            ###   ########.fr       */
+/*   Updated: 2025/07/09 15:52:23 by sbaba            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	main(int argc, char *argv[])
 	if (coordinate_set(fd, &map, &coordinates) == -1)
 	{
 		free_coordinates(&coordinates, map.height);
+		close(fd);
 		exit(-1);
 	}
 	init_positions(&map, &coordinates);
@@ -47,5 +48,6 @@ int	main(int argc, char *argv[])
 	free_coordinates(&coordinates, map.height);
 	view_image(&img);
 	close_mlx(&img);
+	close(fd);
 	return (0);
 }
