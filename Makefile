@@ -11,7 +11,7 @@ SRCS		=	src/main.c \
 				get_next_line/get_next_line_utils.c \
 				get_next_line/get_next_line.c
 OBJS		=	$(SRCS:.c=.o)
-NAME		=	FdF
+NAME		=	fdf
 
 ARCHIVE_URL = https://cdn.intra.42.fr/document/document/34607/minilibx-linux.tgz
 ARCHIVE_NAME = minilibx-linux.tgz
